@@ -1,0 +1,16 @@
+{
+	"appName": "Disease Diagnoser",
+	"description": "A disease diagnoser for the Player owned Farm that will determine what disease symptoms represent.",
+	"appUrl": "./index.html",
+	"configUrl": "./appconfig.json",
+	"iconUrl": "./icon.png",
+	"defaultWidth": 500,
+	"defaultHeight": 295,
+	"minWidth": 500,
+	"minHeight": 295,
+	"maxWidth": 2000,
+	"maxHeight": 2000,
+	"requestHandlers": [ ],
+	"activators": [ ],
+	"permissions": "pixel,overlay"
+}
