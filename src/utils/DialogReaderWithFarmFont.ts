@@ -46,7 +46,7 @@ export class DialogReaderWithFarmFont extends DialogReader {
 		return imgref.toData(this.pos.x, this.pos.y + 33, this.pos.width, 80)
 	}
 	
-	async screwThisImCheatingIveSpentDaysOnThisStupidFontWithLiterallyNoProgress(imgref: a1lib.ImgRef | undefined | null) : Promise<string | null> {
+	async screwThisImCheatingIveSpentDaysOnThisStupidFontWithLiterallyNoProgress(imgref: a1lib.ImgRef | undefined | null) : Promise<string[] | null> {
 		const buf = this.getDialogBoxImageData(imgref);
 		if(!buf) return null;
 		
@@ -54,7 +54,7 @@ export class DialogReaderWithFarmFont extends DialogReader {
 		const ret = await worker.recognize("data:image/png;base64,"+buf.toPngBase64());
 		// await worker.terminate();
 		
-		return ret.data.text;
+		return ret.data.text.split('\n');
 	}
 	
 

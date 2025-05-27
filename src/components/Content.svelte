@@ -2,7 +2,7 @@
     import * as a1lib from 'alt1/base';
     import Diagnosis from './lib/Diagnosis.svelte';
     import Symptom from './lib/Symptom.svelte';
-    import { compareStringAgainstMultiplePossibleMatchesFindBestMatch, getImageDialogBoxObj, getImageDialogBoxText, handleImageCaptureFallsbacksIfNeeded } from '../utils/utils';
+    import { compareStringAgainstMultiplePossibleMatchesFindBestMatch, getImageDialogBoxText, handleImageCaptureFallsbacksIfNeeded } from '../utils/helpers';
     import { symptomsAsList } from '../data/symptoms';
 	
 	const alt1 = window.alt1;
@@ -22,9 +22,11 @@
 		try {
 			img = await handleImageCaptureFallsbacksIfNeeded(img);
 			const boxTextParts = await getImageDialogBoxText(img);
-			const boxText = boxTextParts.join(' ');
+			const boxText = boxTextParts.join(' ').trim()
+			// Needed since tesseract keeps adding a junk character+space before the actual text
+			.replace(/^(\W) /,"");
 			
-			const [closestSymptom, matchScore] = compareStringAgainstMultiplePossibleMatchesFindBestMatch(boxText, symptomsAsList, (a)=>a.fullText);
+			const [closestSymptom, matchScore] = compareStringAgainstMultiplePossibleMatchesFindBestMatch(boxText, symptomsAsList, (a)=>[a.fullText]);
 			
 			console.log({ boxText, closestSymptom, matchScore });
 			
